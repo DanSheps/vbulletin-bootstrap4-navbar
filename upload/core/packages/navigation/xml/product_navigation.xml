@@ -138,7 +138,7 @@ nav.navbar ul.navbar-nav li.nav-item a.nav-link span.badge
 ]]></template>
 		<template name="navigation_menu" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
 <div class="bootstrap">
-	<nav class="navbar sticky-top position-sticky navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar sticky-top position-sticky navbar-expand-lg {vb:stylevar bootstrap_navbar_base_class}">
 		<a class="navbar-brand" href="/">{vb:if "!empty($vboptions->titleimageurl)",{vb:raw vboptions.titleimageurl},{vb:var vboptions.bbtitle}}</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -507,9 +507,11 @@ Options are:
 navbar-light
 navbar-dark
 
-You can include Bootstrap Color Mixins as well such as bg-primary.  Place these side-by-side:
+You should also include Bootstrap Color Mixins as well such as bg-primary.  Place these side-by-side:
 
-navbar-dark bg-primary]]></phrase>
+navbar-dark bg-primary
+navbar-light bg-dark
+navbar-light bg-light]]></phrase>
 			<phrase name="stylevar_bootstrap_navbar_font_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Font]]></phrase>
 			<phrase name="stylevar_bootstrap_navbar_font_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the font family, size, and style for the navigation bar.]]></phrase>
 			<phrase name="stylevar_bootstrap_navbar_font_transform_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Font Transform]]></phrase>

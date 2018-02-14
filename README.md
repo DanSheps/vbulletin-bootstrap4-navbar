@@ -216,3 +216,8 @@ For the change, you need to open the header template and make the following chan
 	```html
 	<vb:comment><!-- ===== END: TOP BACKGROUND HOOK: HEADER-MAINNAV-SUBNAV ===== --></vb:comment>
 	```
+3. Go into the AdminCP, select your theme, edit the following stylevars at a minimum:
+	bootstrap_navbar_base_class
+	bootstrap_navbar_subnav_background
+	
+	Base class can be any BS4 base classes (navbar-dark bg-dark, navbar-light bg-primary, etc)
