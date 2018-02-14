@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="navigation" active="1">
+	<title>BS4 Navigation</title>
+	<description>A Bootstrap 4 Based Navigation</description>
+	<version>1.0.0</version>
+	<url>http://www.ironfist.games</url>
+	<versioncheckurl />
+	<dependencies>
+		<dependency dependencytype="vbulletin" minversion="5.0.4" maxversion="6.0.0a1" />
+	</dependencies>
+	<codes>
+	</codes>
+	<templates>
+		<template name="css_bootstrap_navbar_custom.css" templatetype="template" date="1518196999" username="Sheps" version="1.0.0"><![CDATA[]]></template>
+		<template name="css_bootstrap_navbar.css" templatetype="template" date="1518196999" username="Sheps" version="1.0.0"><![CDATA[
+.bootstrap nav.navbar
+{
+	background: {vb:stylevar bootstrap_navbar_mainnav_background};
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_gradient};
+
+	padding: {vb:stylevar bootstrap_navbar_mainnav_padding} !important;
+
+	color: {vb:stylevar bootstrap_navbar_font_color};
+	font: {vb:stylevar bootstrap_navbar_font};
+	text-transform: {vb:stylevar bootstrap_navbar_font_transform};
+}
+
+nav.navbar ul.navbar-nav > li.nav-item,
+nav.navbar .navbar-text
+{
+	color: {vb:stylevar bootstrap_navbar_font_color} !important;
+}
+
+nav.navbar ul.navbar-nav > li.nav-item > a.nav-link
+{
+	color: {vb:stylevar bootstrap_navbar_link_color} !important;
+}
+
+nav.navbar ul.navbar-nav > li.nav-item:hover
+{
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_hover};
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_hover_gradient};
+}
+
+
+nav.navbar ul.navbar-nav > li.nav-item:active,
+nav.navbar ul.navbar-nav > li.nav-item.active
+{
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_active};
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_active_gradient};
+}
+
+
+nav.navbar ul.navbar-nav > li.nav-item:hover
+{
+	color: {vb:stylevar bootstrap_navbar_link_hover_color} !important;
+}
+
+nav.navbar ul.navbar-nav > li.nav-item:active,
+nav.navbar ul.navbar-nav > li.nav-item.active
+{
+	color: {vb:stylevar bootstrap_navbar_link_active_color} !important;
+}
+
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu
+{
+	background: {vb:stylevar bootstrap_navbar_subnav_background};
+	background: {vb:stylevar bootstrap_navbar_subnav_background_gradient};
+
+	color: {vb:stylevar bootstrap_navbar_subnav_font_color};
+	font-family: {vb:stylevar bootstrap_navbar_subnav_font.family};
+	text-transform: {vb:stylevar bootstrap_navbar_subnav_font_transform};
+}
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item > a
+{
+	color: {vb:stylevar bootstrap_navbar_subnav_link_color} !important;
+}
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item:active,
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item.active
+{
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_active};
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_active_gradient};
+}
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item:hover
+{
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_hover};
+	background: {vb:stylevar bootstrap_navbar_mainnav_background_hover_gradient};
+}
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item:active,
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item.active
+{
+	color: {vb:stylevar bootstrap_navbar_subnav_link_active_color} !important;
+}
+
+
+nav.navbar ul.navbar-nav > li.nav-item.dropdown > .dropdown-menu > .dropdown-item:hover
+{
+	color: {vb:stylevar bootstrap_navbar_subnav_link_hover_color} !important;
+}
+
+]]></template>
+		<template name="css_bootstrap.css" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+.bootstrap
+{
+	display: inline;
+}
+
+.bootstrap .fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome !important;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+nav.navbar ul.navbar-nav li.nav-item a.nav-link img.nav-avatar
+{
+	height: 14px;
+	width: auto;
+}
+
+nav.navbar ul.navbar-nav li.nav-item a.nav-link span.badge
+{
+	top: 0px !important;
+}
+
+.notification-count
+{
+	height: initial;
+}
+]]></template>
+		<template name="navigation_menu" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+<div class="bootstrap">
+	<nav class="navbar sticky-top position-sticky navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">{vb:if "!empty($vboptions->titleimageurl)",{vb:raw vboptions.titleimageurl},{vb:var vboptions.bbtitle}}</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<vb:if condition="!empty($page['channelid'])">
+				{vb:set navbarCurrentChannelId, {vb:var page.channelid}}
+				<vb:elseif condition="!empty($page['nodeid'])" />
+				{vb:set navbarCurrentChannelId, {vb:var page.nodeid}}
+				<vb:else />
+				{vb:set navbarCurrentChannelId, 0}
+				</vb:if>
+				{vb:data navbarItems, 'site', 'loadHeaderNavbar', '1', {vb:raw _SERVER.REQUEST_URI}, 0, {vb:var navbarCurrentChannelId}}
+				{vb:set navbarItemCount, {vb:php count, {vb:raw navbarItems}}}
+				<vb:each from="navbarItems" key="idx" value="navbarItem">
+				{vb:template navigation_menu_item, navbarItem={vb:raw navbarItem},navbarItemId={vb:raw idx}}
+				</vb:each>
+				{vb:hook 'header_tabbar'}
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					{vb:data headerCounts, content_privatemessage, getHeaderCounts}
+					{vb:data unreadCount, content_privatemessage, getUnreadInboxCount}
+					{vb:data canUsePmSystem, content_privatemessage, canUsePmSystem}
+
+				</li>
+				<li class="navbar-nav">
+					{vb:set data.userid, {vb:raw user.userid}}
+					<a href="navbar-item"></a>
+				</li>
+			</ul>
+{vb:template navigation_menu_user}
+			{vb:hook 'header_toolbar'}
+			{vb:data searchperm, user, hasPermissions, forumpermissions, cansearch}
+			<vb:if condition="$searchperm AND $vboptions['enablesearches']">
+			<form class="form-inline my-2 my-lg-0" id="searchForm" action="{vb:url 'search'}" method="GET">
+				<input class="form-control mr-sm-2" type="text" placeholder="{vb:phrase search}" aria-label="Search" name="q" id="q" autocomplete="off">
+				
+				<button class="fa fa-search fa-xs" type="submit" id="btnSearch" title="{vb:phrase search}"></button>
+			</form>
+			</vb:if>
+		</div>
+	</nav>
+</div>]]></template>
+		<template name="navigation_menu_item" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+{vb:set navbarTitle, {vb:raw navbarItem.title}}
+{vb:set normalizedUrl, {vb:raw navbarItem.normalizedUrl}}
+
+<vb:comment><!-- IGNORE # urls that are empty //--></vb:comment>
+<vb:if condition="$normalizedUrl == '#'">
+    <vb:if condition="$itemUrl = $normalizedUrl"></vb:if>
+    <vb:else />
+    <vb:if condition="$itemUrl = $navbarItem['isAbsoluteUrl'] ? $normalizedUrl : ($baseurl . '/' . $normalizedUrl)"></vb:if>
+</vb:if>
+<vb:if condition="$currentClass = (!empty($navbarItem['current'])) ? 'active' : ''"></vb:if>
+
+{vb:set subnavItems, {vb:raw navbarItem.subnav}}
+
+<vb:if condition="empty($subnavItems)">
+    <li class="nav-item {vb:if "!empty($navbarItem['current'])", "current"} {vb:raw currentClass}">
+        <a {vb:if "!empty($navbarItem['newWindow'])", "target='_blank'"} {vb:raw navbarItem.attr} href="{vb:var itemUrl}" class="nav-link {vb:var navbarTitle}" ><span class="sprite-{vb:var navbarTitle}"></span>{vb:phrase {vb:raw navbarTitle}}</a>
+    </li>
+<vb:else />
+    <vb:if condition="$navBarId = 'navbar-dropdown-' . $navbarItemId"></vb:if>
+    <li class="nav-item dropdown {vb:raw currentClass}">
+        <a {vb:if "!empty($navbarItem['newWindow'])", "target='_blank'"} {vb:raw navbarItem.attr} href="{vb:var itemUrl}" style="display: inline-block;" class="nav-link {vb:var navbarTitle}"><span class="sprite-{vb:var navbarTitle}"></span>{vb:phrase {vb:raw navbarTitle}}</a><span class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="{vb:raw $navBarId}"></span>
+        <div class="dropdown-menu" aria-labelledby="{vb:raw $navBarId}">
+            <vb:each from="subnavItems" key="idx" value="subNavItem">
+                {vb:template navigation_menu_item_dropdown_item, subNavItem={vb:raw subNavItem}}
+            </vb:each>
+        </div>
+    </li>
+</vb:if>
+]]></template>
+		<template name="navigation_menu_item_dropdown_item" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+{vb:set navbarTitle, {vb:raw subNavItem.title}}
+{vb:set normalizedUrl, {vb:raw subNavItem.normalizedUrl}}
+<vb:if condition="$itemUrl = $subNavItem['isAbsoluteUrl'] ? $normalizedUrl : ($baseurl . '/' . $normalizedUrl)"></vb:if>
+<vb:if condition="$currentClass = (!empty($subNavItem['current'])) ? 'active' : ''"></vb:if>
+<a {vb:if "!empty($navbarItem['newWindow'])", "target='_blank'"} {vb:raw navbarItem.attr} href="{vb:var itemUrl}" class="dropdown-item {vb:raw currentClass} {vb:var navbarTitle}"><span class="sprite-{vb:var navbarTitle}"></span>{vb:phrase {vb:raw navbarTitle}}</a>
+]]></template>
+		<template name="navigation_admin_sitebuilder_menu" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[<vb:if condition="$user['can_use_sitebuilder']">
+	{vb:data canAdminSettings, user, hasPermissions, adminpermissions, canadminsettings}
+	{vb:data canAdminSettingsAll, user, hasPermissions, adminpermissions, canadminsettingsall}
+	{vb:data canAdminStyles, user, hasPermissions, adminpermissions, canadminstyles}
+	{vb:data canAdminTemplates, user, hasPermissions, adminpermissions, canadmintemplates}
+	{vb:data canAdminForums, user, hasPermissions, adminpermissions, canadminforums}
+	<li class="nav-item dropdown d-none d-lg-block">
+		<a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="navbar-dropdown-admin">SiteBuilder</a>
+		<div class="dropdown-menu js-top-menu-sitebuilder--list" aria-labelledby="navbar-dropdown-admin">
+			<a class="dropdown-item" href="{vb:urladmincptemp ''}">{vb:phrase admincp}</a>
+<vb:if condition="$canAdminSettings OR $canAdminSettingsAll OR $canAdminStyles OR $canAdminTemplates">
+				<a class="dropdown-item js-top-menu-link js-top-menu-tab--style" href="#" data-panel-name="style">{vb:phrase sb_style}</a>
+</vb:if>
+<vb:if condition="$canAdminForums">
+				<a class="dropdown-item js-top-menu-link js-top-menu-tab--channels" href="#" data-panel-name="channels">{vb:phrase channel_manager_label}</a>
+</vb:if>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--pages" href="#" data-panel-name="pages">{vb:phrase sbpanel_pagelist_label}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--newpage" href="#" data-panel-name="newpage">{vb:phrase new_page}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--editpage" href="#" data-panel-name="editpage">{vb:phrase edit_page}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--header" href="#" data-panel-name="header">{vb:phrase header}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--navbar" href="#" data-panel-name="navbar">{vb:phrase navigation_bar}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--footer" href="#" data-panel-name="footer">{vb:phrase footer}</a>
+			<a class="dropdown-item js-top-menu-link js-top-menu-tab--quicksetup" href="#" data-panel-name="quicksetup">Quick Setup</a>
+		</div>
+	</li>
+</vb:if>]]></template>
+		<template name="navigation_menu_pmchat" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+<vb:if condition="$user['canUsePMChat']">
+<li class="nav-item notifications-container dropdown js-pmchat__dropdown">
+	<a class="nav-link dropdown-toggle js-comp-menu-dropdown__trigger" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		{vb:phrase vbmessenger_header}
+		<span class="notifications-count js-pmchat__messages-count badge badge-danger<vb:if condition="empty($headerCounts['messages'])"> h-hide-imp</vb:if>">{vb:number {vb:raw headerCounts.messages}}</span>
+	</a>
+	<div class="dropdown-menu js-pmchat__dropdown-submenu" aria-labelledby="messageDropdown">
+		<div class="h-hide js-pmchat__header-data" data-messages-folderid="{vb:var headerCounts.folderid_messages}" ></div>
+		<a href="#" class="nav-link h-hide js-pmchat__insert-marker"></a>
+		<span class="dropdown-item js-pmchat__dropdown__single-pm-template h-hide-imp js-pmchat__submenu__ephemeral"><a class=" js-pmchat__submenu__link ellipsis" href="#" data-starter="0"><span class="js-pmchat__submenu__title"></span></a></span>
+		{vb:set urlInfo.action, 'index'}
+		<a class="dropdown-item js-pmchat__submenu__link" href="pmchat/chat" title="{vb:phrase go_to_new_chat}">
+		{vb:phrase go_to_new_chat}
+		</a>
+
+		{vb:set urlInfo.action, 'index'}
+		<a class="dropdown-item" href="{vb:url 'privatemessage', {vb:raw urlInfo}}" title="{vb:phrase go_to_inbox}">
+		{vb:phrase go_to_message_center}
+		</a>
+
+		<vb:comment>
+			Keeping the loading icon below any link items as to minimize chances to accidentally moving stuff around while user is trying to click on them.
+		</vb:comment>
+		<div class="dropdown-item js-pmchat__submenu__loading-icon h-hide-imp">
+				<img src="images/loader-box-light.gif" alt="{vb:phrase loading}">
+		</div>
+	</div>
+</li>
+</vb:if>]]></template>
+		<template name="navigation_menu_user" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[{vb:hook 'header_navright'}
+<vb:if condition="$user['userid'] > 0">
+
+<ul class="navbar-nav">
+	<vb:comment>*** Logged in user ***</vb:comment>
+	<vb:comment>** Notifications **</vb:comment>
+	{vb:data headerCounts, content_privatemessage, getHeaderCounts}
+	{vb:data unreadCount, content_privatemessage, getUnreadInboxCount}
+	{vb:data canUsePmSystem, content_privatemessage, canUsePmSystem}
+	<li class="nav-item notifications-container">
+		<vb:if condition="$canUsePmSystem">
+			<vb:if condition="!$user['canUsePMChat']">
+				{vb:set urlInfo.action, 'index'}
+				<a class="nav-link" href="{vb:url 'privatemessage', {vb:raw urlInfo}}">
+						{vb:phrase messages_header}
+					<span class="badge badge-danger notifications-count<vb:if condition="empty($unreadCount)"> h-hide-imp</vb:if> js-header-count-contains-notifications">
+						{vb:number {vb:raw unreadCount}}
+					</span>
+				</a>
+			<vb:else />
+				{vb:set urlInfo.action, 'index'}
+				<a class="nav-link" href="{vb:url 'privatemessage', {vb:raw urlInfo}}">
+						{vb:phrase notifications_header}
+					<span class="badge badge-danger notifications-count<vb:if condition="empty($headerCounts['nonpms_sum'])"> h-hide-imp</vb:if> js-header-count-contains-notifications">
+						{vb:number {vb:raw headerCounts.nonpms_sum}}
+					</span>
+				</a>
+			</vb:if>
+		<vb:else />
+			{vb:data folders, content_privatemessage, fetchSummary}
+			{vb:set folderlist, {vb:raw folders.folders}}
+			{vb:set folder, {vb:raw folderlist.notifications}}
+			{vb:set routeInfo.folderid, {vb:raw folder.folderid}}
+			{vb:set routeInfo.action, 'notification'}
+			<a class="nav-link" href="{vb:url 'privatemessage', {vb:raw routeInfo}}">
+					{vb:phrase messages_header}
+				<span class="badge badge-danger notifications-count<vb:if condition="empty($unreadCount)"> h-hide-imp</vb:if> js-header-count-contains-notifications">
+					{vb:number {vb:raw unreadCount}}
+				</span>
+			</a>
+		</vb:if>
+	</li>
+
+	<vb:comment>** vB Messenger **</vb:comment>
+	<vb:comment>{vb:template pmchat_message_header, headerCounts={vb:raw headerCounts}}</vb:comment>
+	{vb:template navigation_menu_pmchat, headerCounts={vb:raw headerCounts}}
+
+	<vb:comment>** Username menu **</vb:comment>
+	{vb:set data.userid, {vb:raw user.userid}}
+	<vb:comment>
+		the classes username-container and label and the ids lnkUsernameMenu, idLoginIframeContainer, and idLoginIframe exist only  for
+		automated unit testing.  The will be removed in a future release and should not be depended on.  Use the js- classes
+		instead.
+	</vb:comment>
+	<li class="nav-item username-container dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			{vb:data avatar, user, fetchAvatar, {vb:raw user.userid}, true}
+			<vb:if condition="$avatar AND $avatar['avatarpath']">
+				<img src="{vb:raw baseurl_corecdn}/{vb:raw avatar.avatarpath}" class="nav-avatar avatar-{vb:raw user.userid}" alt="{vb:raw user.username}"/>
+			<vb:else />
+				<img src="{vb:raw baseurl_corecdn}/images/default/default_avatar_thumb.png" class="b-comp-menu-dropdown__trigger-avatar avatar-{vb:raw user.userid}"/>
+			</vb:if>
+			{vb:raw user.username}
+		</a>
+		<div class="dropdown-menu" aria-labelledby="profileDropDown">
+			<a class="dropdown-item" href="{vb:url 'profile', {vb:raw data}}">{vb:phrase my_profile}</a>
+			<a class="dropdown-item" href="search?searchJSON=%7B%22authorid%22%3A%5B%22{vb:raw user.userid}%22%5D%2C%22view%22%3A%22topic%22%2C%22channel%22%3A%222%22%2C%22exclude_type%22%3A%5B%22vBForum_PrivateMessage%22%5D%7D">{vb:phrase my_recent_posts}</a>
+			<vb:comment>END POST SEARCH </vb:comment>
+			{vb:set settingsRouteInfo.tab, 'profile'}
+			<a class="dropdown-item" href="{vb:url 'settings', {vb:raw settingsRouteInfo}}">{vb:phrase user_settings}</a>
+			<a class="dropdown-item" href="{vb:raw baseurl}/auth/logout?logouthash={vb:raw user.logouthash}">{vb:phrase log_out}</a>
+		</div>
+	</li>
+	{vb:template navigation_admin_sitebuilder_menu}
+</ul>
+<vb:else />
+<ul class="navbar-nav">
+<vb:comment>*** Guest / logged out user ***</vb:comment>
+<vb:comment>** Login or signup dropdown menu **</vb:comment>
+	<li class="nav-item dropdown username-container">
+		<a class="nav-link dropdown-toggle" href="#" id="loginSignupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			{vb:phrase {vb:if "empty($vboptions['allowregistration'])", login, login_or_sign_up}}
+		</a>
+		<div class="dropdown-menu" aria-labelledby="loginSignupDropdown">
+				<iframe id="idLoginIframe" class="js-menu__login-iframe" src="{vb:raw baseurl_login}/auth/login-form" ></iframe>
+		</div>
+	</li>
+</ul>
+</vb:if>]]></template>
+        <template name="navigation_footer" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[
+<script src="/vendor/popper/js/popper.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function (){
+
+    	if( $.fn.jquery > "3.0.0" )
+    	{
+			$.fn.size = function (){ console.log(this); return this.length; };
+		}
+
+		jQuery.fn.sleep = function (ms) {
+			 return new Promise(resolve => setTimeout(resolve, ms));
+		}
+
+		$('#messageDropdown').dropdown();
+		$('#profileDropdown').dropdown();
+		$('#loginSignupDropdown').dropdown();
+
+        $("ul.navbar-nav").on("mouseover",'li.dropdown',function() {
+			if( $(this).children('a.dropdown-toggle').length == 0 && !$(this).hasClass("show") )
+			{
+				$(this).children('.dropdown-toggle').dropdown('toggle');
+			}
+        });
+
+        $("ul.navbar-nav").on("mouseout",'li.dropdown',function() {
+			if( $(this).children('a.dropdown-toggle').length == 0 && $(this).hasClass("show") )
+			{
+				$(this).children('.dropdown-toggle').dropdown('toggle');
+			}
+        });
+
+        $(".js-top-menu-sitebuilder--list").on('click',function() {
+        	$(this).parent().find('.dropdown-toggle').dropdown('toggle');
+        });
+    });
+</script>]]></template>
+		<template name="navigation_header" templatetype="template" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.css">
+
+		<link rel="stylesheet" href="/vendor/bootstrap/css/prefixed/bootstrap.css">
+		<link rel="stylesheet" href="/vendor/bootstrap/css/prefixed/bootstrap-grid.css">
+		<link rel="stylesheet" href="/vendor/bootstrap/css/prefixed/bootstrap-reboot.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Squada+One" rel="stylesheet">
+		{vb:cssExtra css_bootstrap.css}
+		{vb:cssExtra css_bootstrap_navbar.css}
+		{vb:cssExtra css_bootstrap_navbar_custom.css}
+
+		<script type="text/javascript" src="{vb:raw jqueryurl}"></script>
+		<!--<script type="text/javascript" src="/vendor/jQuery/jquery-3.2.1.js"></script> //-->
+]]></template>
+	</templates>
+	<stylevardfns>
+		<stylevargroup name="Bootstrap Navigation">
+			<stylevar name="bootstrap_navbar_base_class" datatype="string" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_font" datatype="font" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_font_transform" datatype="texttransform" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_font_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_link_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_link_hover_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_link_active_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background_gradient" datatype="string" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background_active" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background_active_gradient" datatype="string" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background_hover" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_background_hover_gradient" datatype="string" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_mainnav_padding" datatype="padding" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background_gradient" datatype="string" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background_active" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background_active_gradient" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background_hover" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_background_hover_gradient" datatype="background" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_font" datatype="font" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_font_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_font_transform" datatype="texttransform" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_link_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_link_hover_color" datatype="color" validation="" failsafe="" />
+			<stylevar name="bootstrap_navbar_subnav_link_active_color" datatype="color" validation="" failsafe="" />
+		</stylevargroup>
+	</stylevardfns>
+	<stylevars>
+		<stylevar name="bootstrap_navbar_base_class" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_font" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_font_transform" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_font_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_link_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_link_hover_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_link_active_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background_active" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background_active_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background_hover" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_background_hover_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_mainnav_padding" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background_active" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background_active_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background_hover" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_background_hover_gradient" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_font" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_font_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_font_transform" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_link_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_link_hover_color" value="YTowOnt9" />
+		<stylevar name="bootstrap_navbar_subnav_link_active_color" value="YTowOnt9" />
+	</stylevars>
+	<hooks>
+		<hook>
+			<hookname>header_head</hookname>
+			<title>BS4 Navigation Header CSS</title>
+			<active>1</active>
+			<hookorder>10</hookorder>
+			<template>navigation_header</template>
+			<arguments>a:0:{}</arguments>
+		</hook>
+        <hook>
+            <hookname>footer_before_body_end</hookname>
+            <title>BS4 Navigation Hover Dropdown Activate</title>
+            <active>1</active>
+            <hookorder>10</hookorder>
+            <template>navigation_footer</template>
+            <arguments>a:0:{}</arguments>
+        </hook>
+	</hooks>
+	<phrases>
+		<phrasetype name="Style Tools" fieldname="style">
+			<phrase name="group_navigation" date="1506632734" username="Sheps" version="1.0.0"><![CDATA[BS4 Navigation]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_base_class_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Base Class]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_base_class_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[This is the base bootstrap class for the Navigation.
+
+Options are:
+
+navbar-light
+navbar-dark
+
+You can include Bootstrap Color Mixins as well such as bg-primary.  Place these side-by-side:
+
+navbar-dark bg-primary]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Font]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the font family, size, and style for the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_transform_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Font Transform]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_transform_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls text transformation for the text in the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Font Color]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_font_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the text color for the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the color for links in the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_hover_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color (On Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_hover_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the text color for links in the navigation bar, when the mouse is over them.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_active_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_link_active_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the text color for links in the navigation bar, when it is currently selected.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Background Color]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Background Gradient]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the gradient for the navigation bar item]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_active_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Item Background (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_active_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar item, when it is currently selected.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_active_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Item Background Gradient (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_active_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the gradient for the navigation bar item, when it is currently selected.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_hover_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Item Background (On Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_hover_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar item, when the mouse is over it.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_hover_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Item Background Gradient (On Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_background_hover_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the gradient for the navigation bar item, when the mouse is over them.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_padding_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Padding]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_mainnav_padding_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the padding for the navigation bar.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Background]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Background Gradient]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color gradient for the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_active_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Item Background (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_active_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar dropdown menu, when it is currently selected.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_active_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Item Background Gradient (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_active_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color gradient for the navigation bar dropdown menu, when it is currently selected.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_hover_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Item Background (Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_hover_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color and image for the navigation bar dropdown menu, when the mouse is over it.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_hover_gradient_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Item Background Gradient (Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_background_hover_gradient_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the background color gradient for the navigation bar dropdown menu, when the mouse is over it.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Font]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the font family, size, and style for the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Font]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the text color for the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_transform_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Dropdown Font Transform]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_font_transform_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls text transformation for the text in the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the color for links in the navigation bar dropdown menu.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_hover_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color (On Hover)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_hover_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the color for links in the navigation bar dropdown menu, when the mouse is over it.]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_active_color_name" date="1518559151" username="Sheps" version="1.0.0"><![CDATA[Navbar Link Color (Active)]]></phrase>
+			<phrase name="stylevar_bootstrap_navbar_subnav_link_active_color_description" date="1518559202" username="Sheps" version="1.0.0"><![CDATA[Controls the color for links in the navigation bar dropdown menu, when it is currently selected.]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+	<widgets>
+	</widgets>
+	<pagetemplates>
+	</pagetemplates>
+	<pages>
+	</pages>
+	<channels>
+	</channels>
+	<routes>
+	</routes>
+</product>
